@@ -900,14 +900,18 @@ class PerceiverModel(PerceiverPreTrainedModel):
 
         logits = None
         if self.decoder:
-            if subsampled_output_points is not None:
-                output_modality_sizes = {
-                    "audio": subsampled_output_points["audio"].shape[0],
-                    "image": subsampled_output_points["image"].shape[0],
-                    "label": 1,
-                }
-            else:
-                output_modality_sizes = None
+            
+            # BVH MOD:
+            # if subsampled_output_points is not None:
+            #     output_modality_sizes = {
+            #         "audio": subsampled_output_points["audio"].shape[0],
+            #         "image": subsampled_output_points["image"].shape[0],
+            #         "label": 1,
+            #     }
+            # else:
+            #     output_modality_sizes = None
+            output_modality_sizes = None
+
             decoder_query = self.decoder.decoder_query(
                 inputs, modality_sizes, inputs_without_pos, subsampled_points=subsampled_output_points
             )
